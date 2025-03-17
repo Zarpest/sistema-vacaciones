@@ -1,0 +1,40 @@
+// frontend/src/pages/employee/RequestHistory.js
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+
+const RequestHistory = () => {
+  const [solicitudes, setSolicitudes] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  
+  useEffect(() => {
+    const fetchSolicitudes = async () => {
+      try {
+        const response = await axios.get('/solicitudes/me');
+        setSolicitudes(response.data);
+      } catch (err) {
+        setError('Error al cargar el historial de solicitudes');
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    fetchSolicitudes();
+  }, []);
+  
+  if (loading) {
+    return <div className="text-center py-8">Cargando historial...</div>;
+  }
+  
+  if (error) {
+    return (
+      <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+        {error}
+      </div>
+    );
+  }
+  
+  return (
+    <div>
+      <h2 className="text-2xl font-bold mb-6">Historial de Solicitudes

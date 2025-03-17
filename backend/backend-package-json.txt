@@ -1,0 +1,7 @@
+{
+  "name": "vacation-management-backend",
+  "version": "1.0.0",
+  "description": "Backend para sistema de gestión de vacaciones y permisos",
+  "main": "app.js",
+  "scripts": {
+    "start":
